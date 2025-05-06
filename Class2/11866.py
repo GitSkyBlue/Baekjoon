@@ -1,13 +1,14 @@
 n, m = map(int, input().split())
 
-pep_list = [i for i in range(1, n + 1)]
-
-for i in range(1, n + 1):
-    temp_list = pep_list
-    n = 1
-    while n * 3 - 1 < len(pep_list):
-        del temp_list[n * 3 - 1]
-        n += 1
-    pep_list += temp_list
+pep_list = [i + 1 for i in range(n)] 
+current = 0
+count = 0
+for i in range(20):
+    if pep_list[current] == 0:
+        count += 1
+    else:
+        count += 1
+        if count % 3 == 0:
+            pep_list[current] = 0
+        current += 1
     print(pep_list)
-# print([1, 2] + [3, 4])
