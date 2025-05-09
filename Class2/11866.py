@@ -1,14 +1,18 @@
-n, m = map(int, input().split())
+import sys
+from collections import deque
 
-pep_list = [i + 1 for i in range(n)] 
-current = 0
+n, m = map(int, sys.stdin.readline().strip().split())
+dq = deque([i + 1 for i in range(n)])
 count = 0
-for i in range(20):
-    if pep_list[current] == 0:
-        count += 1
+print('<', end='')
+answer = []
+while sum(dq) != 0:
+    num = dq.popleft()
+    count += 1
+    if count % m == 0:
+        answer.append(str(num))
     else:
-        count += 1
-        if count % 3 == 0:
-            pep_list[current] = 0
-        current += 1
-    print(pep_list)
+        dq.append(num)
+
+print(', '.join(answer), end='')
+print('>')
