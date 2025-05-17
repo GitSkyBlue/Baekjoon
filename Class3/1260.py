@@ -1,5 +1,3 @@
-from collections import deque
-
 n, m, k = map(int, input().split())
 
 node_dict = {}
@@ -34,9 +32,10 @@ else:
     answer = [str(k)]
 print(' '.join(list(map(str, answer))))
 
-dq = set()
+answer = {}
 next = [k]
-dq.add(k)
+seq = 1
+answer[k] = seq
 
 while next:
     if k not in node_dict:
@@ -44,10 +43,12 @@ while next:
     temp = []
     for nex in next:
         for n in sorted(node_dict[nex]):
-            if n in dq:
+            if n in answer:
                 pass
             else:
                 temp.append(n)
-                dq.add(n)
-    next = list(set(temp))
-print(' '.join(list(map(str, dq))))
+                seq += 1
+                answer[n] = seq
+    next = temp
+
+print(' '.join(list(map(str, answer))))
