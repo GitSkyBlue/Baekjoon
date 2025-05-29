@@ -1,11 +1,11 @@
 import sys
-import math
+
 n = int(sys.stdin.readline())
 
-for i in range(4):
-    print(math.sqrt(n))
-    n -= int(math.sqrt(n)) ** 2
-    if n == 0:
-        break
+dp = [50001] * 50000
+dp[1] = 1
+for i in range(2, 50001):
+    for j in range(224 - int(i ** 1 / 2)):
+        dp[i + j ** 2] = min(dp[i - 1] + 1, dp[i] + 1)
 
-print(i + 1)
+print(dp[:n], 'fasdffs')
