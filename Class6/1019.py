@@ -1,30 +1,35 @@
 import sys
 
-# n = int(sys.stdin.readline())
-# page_dict = {k: 0 for k in range(10)}
-# for i in range(1, n + 1):
-#     for s in str(i):
-#         page_dict[int(s)] += 1
-
-# sys.stdout.write(' '.join([str(v) for v in page_dict.values()]))
-num = 2999
+num = int(sys.stdin.readline())
+str_num = str(num)
 target = [int(s) for s in str(num)]
 page_dict = {k: 0 for k in range(10)}
 start = len(target) - 1
-print(start)
-for i, n in enumerate(target):
-    for j in range(1, 10):
-        page_dict[j] += int(10 ** (start - 1) * start * n)
 
-    for j in range(1, n + 1):
-        page_dict[j] += 10 ** start
-        
-    page_dict[n] += int(str(num)[i + 1:]) if len(str(num)[i + 1:]) != 0 else 0
+zero_count = 0
 
+if num > 9:
+    for i in range(len(str_num) - 1):
+        zero_count += 9 * (10 ** i) * (i + 1)
+
+    zero_count += (num - int('9' * (len(str_num) - 1))) * len(str_num)
+else:
+    zero_count = num
+
+for i in range(len(str_num) - 1):
+    for j in range(int(str_num[i])):
+        for k in range(1, 10):
+            page_dict[k] += int((10 ** (start - 1)) * start)
+        page_dict[j] += (10 ** start)
+    page_dict[int(str_num[i])] += int(str_num[i + 1:]) + 1
     start -= 1
     
-    print(page_dict)
-
+for i in range(int(str_num[-1])):
+    page_dict[i + 1] += 1
+    
+page_dict[0] = zero_count - sum(page_dict.values()) + page_dict[0]
+print(*page_dict.values())
+# print(zero_count)
 # $ python class6/1019.py
 # 9799
 # 2849 3960 3960 3960 3960 3960 3960 3960 3860 3660
@@ -44,7 +49,12 @@ for i, n in enumerate(target):
 # $ python class6/1019.py
 # 3000
 # 792 1900 1900 901 900 900 900 900 900 900
-
+# 9 * i * 10 ** (i - 1)
+# 9 180 2700 36000
+# 9 -> 0
+# 99 -> 9
+# 999 -> 189
+# 9999 -> 2889
 # 9 -> 1
 # 99 -> 10 10
 # 999 -> 100 100 100
