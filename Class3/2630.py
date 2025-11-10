@@ -8,3 +8,4 @@ center = n // 2
 
 for p in paper_list:
     print(p)
+

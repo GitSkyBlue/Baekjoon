@@ -1,23 +1,28 @@
+from collections import deque
+
 n = int(input())
 
 number_list = [input().split() for _ in range(n)]
 
-print(number_list)
-for number in number_list:
+for tag, number in enumerate(number_list):
+    answer = deque()
     num, count = number
-    num_dict = {}
-    for i, n in enumerate(num):
-        num_dict[int(n)] = i
-
-    print(num_dict)
-
-    for i in range(int(count)):
-        for k, v in num_dict.items():
-            if v == max(num_dict.values()):
-                temp = num_dict[i + 1]
-                num_dict[i + 1] = v
-                num_dict[k] = temp
+    count = int(count)
+    num = deque(map(int, list(num)))
+    best = deque(sorted(num, reverse=True))
+    print(num, best, num == best)
+    
+    idx = 0
+    for c in range(count):
+        while num[idx] == best[idx]:
+            idx += 1
+            
+            if idx == len(num):
                 break
-        print(num_dict)
 
-    break
+        print(idx)
+            # temp = num[idx]
+            # for i in range(num[len(num), idx, -1]):
+            #     print(num[i])
+    print(answer, num)
+    print(f'#{tag + 1} {num}')
